@@ -8,7 +8,7 @@ const exaSearchResultSchema = z.object({
   text: z.string().optional(),
   content: z.string().optional(),
   published: z.string().optional(),
-  author: z.string().optional(),
+  author: z.string().nullable(),
   score: z.number().optional(),
   highlights: z
     .array(z.object({ text: z.string(), score: z.number().optional() }))
@@ -56,24 +56,20 @@ export class ExaClient {
     startCursor,
   }: ExaSearchOptions): Promise<ExaSearchResponse> {
     try {
-      const params = new URLSearchParams({
-        q: query,
-        numResults: numResults.toString(),
-        useAutoprompt: useAutoprompt.toString(),
-        highlightResults: highlightResults.toString(),
-        highlightSelector,
-      });
-
-      if (startCursor) {
-        params.append("cursor", startCursor);
-      }
-
-      const response = await fetch(`${this.baseUrl}?${params.toString()}`, {
-        method: "GET",
+      const response = await fetch(`${this.baseUrl}`, {
+        method: "POST",
         headers: {
           "x-api-key": this.apiKey,
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          query,
+          numResults,
+          useAutoprompt,
+          highlightResults,
+          highlightSelector,
+          cursor: startCursor,
+        }),
       });
 
       if (!response.ok) {

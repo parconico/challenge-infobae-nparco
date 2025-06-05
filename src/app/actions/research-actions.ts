@@ -38,9 +38,9 @@ async function categorizeResults(results: any[]): Promise<ResearchResult[]> {
   try {
     // Usar generateObject para categorizar todos los resultados de una sola vez
     const { object } = await generateObject({
-      model: openai(process.env.OPENAI_MODEL || "gpt-4o"),
+      model: openai(process.env.OPENAI_MODEL || "gpt-4o-mini"),
       schema: z.object({
-        categorizeResults: z.array(
+        categorizedResults: z.array(
           z.object({
             id: z.string(),
             title: z.string(),
@@ -74,7 +74,7 @@ async function categorizeResults(results: any[]): Promise<ResearchResult[]> {
         y un campo "reason" con una breve explicación de la decisión.
       `,
     });
-    return object.categorizeResults;
+    return object.categorizedResults;
   } catch (error) {
     console.error("Error en la categorizacion:", error);
 
@@ -92,7 +92,7 @@ async function categorizeResultsIndividually(
   for (const result of results) {
     try {
       const { text: categorization } = await generateText({
-        model: openai(process.env.OPENAI_MODEL || "gpt-4o"),
+        model: openai(process.env.OPENAI_MODEL || "gpt-4o-mini"),
         prompt: `
           Evalúa si este resultado de investigación vale la pena expandir en un artículo completo.
           

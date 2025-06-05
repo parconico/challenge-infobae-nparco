@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import type { ResearchResult } from "@/lib/types";
+import { useShallow } from "zustand/react/shallow";
 
 export interface ArticleState {
   initialArticle: string;
@@ -205,25 +206,31 @@ export const useActiveTab = () => useAppStore((state) => state.activeTab);
 
 // Action selectors
 export const useResearchActions = () =>
-  useAppStore((state) => ({
-    setResearchResults: state.setResearchResults,
-    setResearchLoading: state.setResearchLoading,
-    setCurrentTopic: state.setCurrentTopic,
-    resetResearch: state.resetResearch,
-  }));
+  useAppStore(
+    useShallow((state) => ({
+      setResearchResults: state.setResearchResults,
+      setResearchLoading: state.setResearchLoading,
+      setCurrentTopic: state.setCurrentTopic,
+      resetResearch: state.resetResearch,
+    }))
+  );
 
 export const useArticleActions = () =>
-  useAppStore((state) => ({
-    setSelectedResult: state.setSelectedResult,
-    setInitialArticle: state.setInitialArticle,
-    setReinterpretedArticle: state.setReinterpretedArticle,
-    setGeneratedTitles: state.setGeneratedTitles,
-    setSelectedTitle: state.setSelectedTitle,
-    resetArticle: state.resetArticle,
-  }));
+  useAppStore(
+    useShallow((state) => ({
+      setSelectedResult: state.setSelectedResult,
+      setInitialArticle: state.setInitialArticle,
+      setReinterpretedArticle: state.setReinterpretedArticle,
+      setGeneratedTitles: state.setGeneratedTitles,
+      setSelectedTitle: state.setSelectedTitle,
+      resetArticle: state.resetArticle,
+    }))
+  );
 
 export const useUiActions = () =>
-  useAppStore((state) => ({
-    setActiveTab: state.setActiveTab,
-    resetAll: state.resetAll,
-  }));
+  useAppStore(
+    useShallow((state) => ({
+      setActiveTab: state.setActiveTab,
+      resetAll: state.resetAll,
+    }))
+  );
