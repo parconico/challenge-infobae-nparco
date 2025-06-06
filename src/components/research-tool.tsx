@@ -3,8 +3,6 @@
 import { initialResearch } from "@/app/actions/research-actions";
 import ArticleGenerator from "@/components/article-generator";
 import ResearchResults from "@/components/research-results";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useActiveTab,
@@ -13,6 +11,7 @@ import {
   useResearchState,
   useUiActions,
 } from "@/lib/store";
+import { TopicSelector } from "./research/TopicSelector";
 
 const PREDEFINED_TOPICS = [
   "Inteligencia Artificial en la educación",
@@ -56,31 +55,11 @@ export default function ResearchTool() {
         </TabsList>
 
         <TabsContent value="research" className="space-y-6">
-          <Card className="p-6">
-            <h2>Selecciona un tema para investigar</h2>
-            {research.currentTopic && (
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
-                <p className="text-blue-800">
-                  <strong>Tema actual:</strong> {research.currentTopic}
-                </p>
-              </div>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {PREDEFINED_TOPICS.map((topic) => (
-                <Button
-                  key={topic}
-                  variant={
-                    research.currentTopic === topic ? "default" : "outline"
-                  }
-                  onClick={() => handleResearch(topic)}
-                  className="h-auto py-3 justify-start text-left"
-                  disabled={research.isLoading}
-                >
-                  {topic}
-                </Button>
-              ))}
-            </div>
-          </Card>
+          <TopicSelector
+            topics={PREDEFINED_TOPICS}
+            onTopicSelect={handleResearch}
+            isLoading={research.isLoading}
+          />
 
           {research.isLoading ? (
             <div className="flex flex-col justify-center items-center py-10">

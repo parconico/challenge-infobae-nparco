@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 import type { ResearchResult } from "@/lib/types";
 import { useShallow } from "zustand/react/shallow";
 
@@ -66,136 +66,142 @@ const initialArticleState: ArticleState = {
 
 export const useAppStore = create<AppState>()(
   devtools(
-    (set) => ({
-      // Initial state
-      research: initialResearchState,
-      article: initialArticleState,
-      activeTab: "research",
+    persist(
+      (set) => ({
+        // Initial state
+        research: initialResearchState,
+        article: initialArticleState,
+        activeTab: "research",
 
-      // Research actions
-      setResearchResults: (results) =>
-        set(
-          (state) => ({
-            research: {
-              ...state.research,
-              results,
-              worthExpandingResults: results.filter((r) => r.worthExpanding),
-              notWorthExpandingResults: results.filter(
-                (r) => !r.worthExpanding
-              ),
-            },
-          }),
-          false,
-          "setResearchResults"
-        ),
+        // Research actions
+        setResearchResults: (results) =>
+          set(
+            (state) => ({
+              research: {
+                ...state.research,
+                results,
+                worthExpandingResults: results.filter((r) => r.worthExpanding),
+                notWorthExpandingResults: results.filter(
+                  (r) => !r.worthExpanding
+                ),
+              },
+            }),
+            false,
+            "setResearchResults"
+          ),
 
-      setResearchLoading: (loading) =>
-        set(
-          (state) => ({
-            research: { ...state.research, isLoading: loading },
-          }),
-          false,
-          "setResearchLoading"
-        ),
+        setResearchLoading: (loading) =>
+          set(
+            (state) => ({
+              research: { ...state.research, isLoading: loading },
+            }),
+            false,
+            "setResearchLoading"
+          ),
 
-      setCurrentTopic: (topic) =>
-        set(
-          (state) => ({
-            research: { ...state.research, currentTopic: topic },
-          }),
-          false,
-          "setCurrentTopic"
-        ),
+        setCurrentTopic: (topic) =>
+          set(
+            (state) => ({
+              research: { ...state.research, currentTopic: topic },
+            }),
+            false,
+            "setCurrentTopic"
+          ),
 
-      //Article actions
-      setSelectedResult: (result) =>
-        set(
-          (state) => ({
-            article: { ...state.article, selectedResult: result },
-          }),
-          false,
-          "setSelectedResult"
-        ),
+        //Article actions
+        setSelectedResult: (result) =>
+          set(
+            (state) => ({
+              article: { ...state.article, selectedResult: result },
+            }),
+            false,
+            "setSelectedResult"
+          ),
 
-      setInitialArticle: (article) =>
-        set(
-          (state) => ({
-            article: { ...state.article, initialArticle: article },
-          }),
-          false,
-          "setInitialArticle"
-        ),
+        setInitialArticle: (article) =>
+          set(
+            (state) => ({
+              article: { ...state.article, initialArticle: article },
+            }),
+            false,
+            "setInitialArticle"
+          ),
 
-      setReinterpretedArticle: (article) =>
-        set(
-          (state) => ({
-            article: { ...state.article, reinterpretedArticle: article },
-          }),
-          false,
-          "setReinterpretedArticle"
-        ),
+        setReinterpretedArticle: (article) =>
+          set(
+            (state) => ({
+              article: { ...state.article, reinterpretedArticle: article },
+            }),
+            false,
+            "setReinterpretedArticle"
+          ),
 
-      setGeneratedTitles: (titles) =>
-        set(
-          (state) => ({
-            article: { ...state.article, generatedTitles: titles },
-          }),
-          false,
-          "setGeneratedTitles"
-        ),
+        setGeneratedTitles: (titles) =>
+          set(
+            (state) => ({
+              article: { ...state.article, generatedTitles: titles },
+            }),
+            false,
+            "setGeneratedTitles"
+          ),
 
-      setSelectedTitle: (title) =>
-        set(
-          (state) => ({
-            article: { ...state.article, selectedTitle: title },
-          }),
-          false,
-          "setSelectedTitle"
-        ),
+        setSelectedTitle: (title) =>
+          set(
+            (state) => ({
+              article: { ...state.article, selectedTitle: title },
+            }),
+            false,
+            "setSelectedTitle"
+          ),
 
-      // UI actions
-      setActiveTab: (tab) =>
-        set(
-          () => ({
-            activeTab: tab,
-          }),
-          false,
-          "setActiveTab"
-        ),
+        // UI actions
+        setActiveTab: (tab) =>
+          set(
+            () => ({
+              activeTab: tab,
+            }),
+            false,
+            "setActiveTab"
+          ),
 
-      // Reset functions
-      resetResearch: () =>
-        set(
-          () => ({
-            research: initialResearchState,
-          }),
-          false,
-          "resetResearch"
-        ),
+        // Reset functions
+        resetResearch: () =>
+          set(
+            () => ({
+              research: initialResearchState,
+            }),
+            false,
+            "resetResearch"
+          ),
 
-      resetArticle: () =>
-        set(
-          () => ({
-            article: initialArticleState,
-          }),
-          false,
-          "resetArticle"
-        ),
+        resetArticle: () =>
+          set(
+            () => ({
+              article: initialArticleState,
+            }),
+            false,
+            "resetArticle"
+          ),
 
-      resetAll: () =>
-        set(
-          () => ({
-            research: initialResearchState,
-            article: initialArticleState,
-            activeTab: "research",
-          }),
-          false,
-          "resetAll"
-        ),
-    }),
-    {
-      name: "research-tool-store",
-    }
+        resetAll: () =>
+          set(
+            () => ({
+              research: initialResearchState,
+              article: initialArticleState,
+              activeTab: "research",
+            }),
+            false,
+            "resetAll"
+          ),
+      }),
+      {
+        name: "research-tool-store",
+        // Solo persistir el estado de artículos para mantener el trabajo del usuario
+        partialize: (state) => ({
+          article: state.article,
+        }),
+      }
+    )
   )
 );
 

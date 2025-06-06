@@ -38,7 +38,7 @@ async function categorizeResults(results: any[]): Promise<ResearchResult[]> {
   try {
     // Usar generateObject para categorizar todos los resultados de una sola vez
     const { object } = await generateObject({
-      model: openai(process.env.OPENAI_MODEL || "gpt-4o-mini"),
+      model: openai(process.env.OPENAI_MODEL || "gpt-4o"),
       schema: z.object({
         categorizedResults: z.array(
           z.object({
@@ -92,7 +92,7 @@ async function categorizeResultsIndividually(
   for (const result of results) {
     try {
       const { text: categorization } = await generateText({
-        model: openai(process.env.OPENAI_MODEL || "gpt-4o-mini"),
+        model: openai(process.env.OPENAI_MODEL || "gpt-4o"),
         prompt: `
           Evalúa si este resultado de investigación vale la pena expandir en un artículo completo.
           

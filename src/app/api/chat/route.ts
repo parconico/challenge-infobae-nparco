@@ -1,7 +1,7 @@
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
 
-// Allow straming responses up to 30 seconds
+// Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
@@ -19,18 +19,33 @@ export async function POST(req: Request) {
       );
     }
 
-    // Configurar el  modelo desde variables de entorno o usar predeterminado
-    const modelName = process.env.OPENAI_MODEL || "gpt-4o-mini";
+    // Configurar el modelo desde variables de entorno o usar el predeterminado
+    const modelName = process.env.OPENAI_MODEL || "gpt-4o";
 
     // Crear el stream de texto
     const result = streamText({
       model: openai(modelName),
-      messages,
+      messages: [
+        {
+          role: "system",
+          content: `Eres un asistente experto en reescritura y edición de artículos. Tu trabajo es reinterpretar artículos siguiendo las instrucciones específicas del usuario. 
+
+Cuando recibas un artículo y instrucciones:
+1. Lee cuidadosamente el artículo original
+2. Aplica las modificaciones solicitadas
+3. Mantén la información factual importante
+4. Asegúrate de que el resultado sea coherente y bien estructurado
+5. Conserva un tono profesional a menos que se solicite lo contrario
+
+Responde únicamente con el artículo reinterpretado, sin comentarios adicionales.`,
+        },
+        ...messages,
+      ],
       temperature: 0.7,
-      maxTokens: Number(process.env.MAX_TOKENS) || 2000,
+      maxTokens: Number(process.env.OPENAI_MAX_TOKENS || 3000),
     });
 
-    //Devolver la respuesta como stream
+    // Devolver la respuesta como stream
     return result.toDataStreamResponse();
   } catch (error) {
     console.error("Error in chat API:", error);
@@ -41,6 +56,7 @@ export async function POST(req: Request) {
       }),
       {
         status: 500,
+        headers: { "Content-Type": "application/json" },
       }
     );
   }
