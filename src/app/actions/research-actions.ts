@@ -20,6 +20,7 @@ export async function initialResearch(
       title: result.title,
       url: result.url,
       snippet: result.text || result.content || "",
+      score: result.score,
       source: new URL(result.url).hostname.replace("www.", ""),
     }));
 
@@ -46,6 +47,7 @@ async function categorizeResults(results: any[]): Promise<ResearchResult[]> {
             title: z.string(),
             url: z.string(),
             snippet: z.string(),
+            score: z.number(),
             source: z.string(),
             worthExpanding: z
               .boolean()
@@ -114,6 +116,7 @@ async function categorizeResultsIndividually(
         url: result.url,
         snippet: result.snippet,
         source: result.source,
+        score: result.score,
         worthExpanding: categorization.includes("EXPANDIR"),
         reason: "Evaluación Individual",
       });

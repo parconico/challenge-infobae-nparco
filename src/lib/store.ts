@@ -30,6 +30,10 @@ export interface AppState {
   // UI state
   activeTab: string;
 
+  // Sorting state
+  orderByRelevance: boolean;
+  setOrderByRelevance: (value: boolean) => void;
+
   // Actions
   setResearchResults: (results: ResearchResult[]) => void;
   setResearchLoading: (loading: boolean) => void;
@@ -75,6 +79,7 @@ export const useAppStore = create<AppState>()(
         research: initialResearchState,
         article: initialArticleState,
         activeTab: "research",
+        orderByRelevance: false,
 
         // Research actions
         setResearchResults: (results) =>
@@ -174,6 +179,16 @@ export const useAppStore = create<AppState>()(
             "setTitleCount"
           ),
 
+        // Sorting actions
+        setOrderByRelevance: (value) =>
+          set(
+            () => ({
+              orderByRelevance: value,
+            }),
+            false,
+            "setOrderByRelevance"
+          ),
+
         // UI actions
         setActiveTab: (tab) =>
           set(
@@ -259,5 +274,6 @@ export const useUiActions = () =>
     useShallow((state) => ({
       setActiveTab: state.setActiveTab,
       resetAll: state.resetAll,
+      setOrderByRelevance: state.setOrderByRelevance,
     }))
   );

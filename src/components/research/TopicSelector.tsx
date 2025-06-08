@@ -33,7 +33,7 @@ export function TopicSelector({
             key={topic}
             variant={currentTopic === topic ? "default" : "outline"}
             onClick={() => onTopicSelect(topic)}
-            className="h-auto py-3 justify-start text-left"
+            className="h-auto py-3 justify-start text-left cursor-pointer"
             disabled={isLoading}
           >
             {topic}

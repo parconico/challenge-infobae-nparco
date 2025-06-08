@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useExpandedResults } from "@/hooks/useExpandedResults";
 import type { ResearchResult } from "@/lib/types";
-import { ExternalLink, Info } from "lucide-react";
+import { ExternalLink, Info, Star } from "lucide-react";
 
 interface ResultCardProps {
   result: ResearchResult;
@@ -38,9 +38,14 @@ export function ResultCard({ result, onSelect, variant }: ResultCardProps) {
       <CardHeader>
         <CardTitle className="flex justify-between">
           <span className="text-lg">{result.title}</span>
-          <Badge variant="outline" className="ml-2">
-            {result.source}
-          </Badge>
+          <div className="flex flex-col gap-2 items-end">
+            <Badge variant="outline" className="ml-2">
+              {result.source}
+            </Badge>
+            <Badge variant="outline" className="ml-2">
+              <Star className="h-4 w-4 mr-1" /> {result.score.toFixed(2)}
+            </Badge>
+          </div>
         </CardTitle>
         <CardDescription>
           <a

@@ -9,7 +9,7 @@ const exaSearchResultSchema = z.object({
   content: z.string().optional(),
   published: z.string().optional(),
   author: z.string().nullable(),
-  score: z.number().optional(),
+  score: z.number().optional().default(0),
   highlights: z
     .array(z.object({ text: z.string(), score: z.number().optional() }))
     .optional(),

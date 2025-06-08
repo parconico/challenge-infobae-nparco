@@ -3,6 +3,7 @@ export interface ResearchResult {
   title: string;
   url: string;
   snippet: string;
+  score: number;
   source: string;
   worthExpanding: boolean;
   reason?: string;
