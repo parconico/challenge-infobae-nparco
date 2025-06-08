@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     // Configurar el modelo desde variables de entorno o usar el predeterminado
-    const modelName = process.env.OPENAI_MODEL || "gpt-4o";
+    const modelName = process.env.OPENAI_MODEL || "gpt-3.5-turbo";
 
     // Crear el stream de texto
     const result = streamText({

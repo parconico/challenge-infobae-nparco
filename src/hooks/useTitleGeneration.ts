@@ -6,8 +6,9 @@ import { useState } from "react";
 
 export function useTitleGeneration() {
   const article = useArticleState();
-  const [titleCount, setTitleCount] = useState("3");
-  const { setSelectedTitle, setGeneratedTitles } = useArticleActions();
+  const titleCount = article.titleCount;
+  const { setSelectedTitle, setGeneratedTitles, setTitleCount } =
+    useArticleActions();
   const [isTitleGenerating, setIsTitleGenerating] = useState(false);
 
   const handleGenerateTitles = async () => {

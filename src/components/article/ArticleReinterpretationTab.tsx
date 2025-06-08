@@ -9,7 +9,7 @@ import { useArticleChat } from "@/hooks/useArticleChat";
 import { useArticleState } from "@/lib/store";
 
 export function ArticleReinterpretationTab() {
-  const { initialArticle } = useArticleState();
+  const { initialArticle, reinterpretedArticle } = useArticleState();
   const {
     messages,
     input,
@@ -30,6 +30,10 @@ export function ArticleReinterpretationTab() {
       </div>
     );
   }
+
+  const showInProgress =
+    isLoading && latestAssistantMessage?.role === "assistant";
+  const showFinal = !isLoading && reinterpretedArticle.length > 0;
 
   return (
     <div className="space-y-4 py-4">
@@ -77,13 +81,13 @@ export function ArticleReinterpretationTab() {
         </Button>
       </form>
 
-      {/* Mostrar el artículo reinterpretado */}
-      {latestAssistantMessage && (
+      {/* Mostrar el artículo reinterpretado en curso */}
+      {showInProgress && (
         <Card>
           <CardContent className="p-4">
             <h3 className="font-medium mb-2 flex items-center">
               <FileText className="h-4 w-4 mr-2" />
-              Artículo reinterpretado:
+              Reinterpretación en curso:
             </h3>
             <div className="prose prose-sm max-w-none p-3 rounded-md border bg-muted">
               <div className="whitespace-pre-wrap text-sm">
@@ -94,22 +98,34 @@ export function ArticleReinterpretationTab() {
         </Card>
       )}
 
-      {/* Mostrar historial de mensajes si hay más de uno */}
-      {messages.length > 2 && (
+      {/* Mostrar la última reinterpretación terminada */}
+      {showFinal && (
+        <Card>
+          <CardContent className="p-4">
+            <h3 className="font-medium mb-2">Reinterpretación final:</h3>
+            <div className="whitespace-pre-wrap text-sm bg-muted p-3 rounded-md">
+              {reinterpretedArticle[reinterpretedArticle.length - 1]}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Mostrar historial de reinterpretaciones si hay más de una */}
+      {reinterpretedArticle.length > 1 && (
         <Card>
           <CardContent className="p-4">
             <h3 className="font-medium mb-2">
               Historial de reinterpretaciones:
             </h3>
-            <div className="space-y-2 max-h-60 overflow-y-auto">
-              {messages
-                .filter((m) => m.role === "assistant")
-                .slice(0, -1)
-                .map((message, index) => (
-                  <div key={index} className="p-2 bg-muted rounded-md text-sm">
-                    <div className="whitespace-pre-wrap">{message.content}</div>
-                  </div>
-                ))}
+            <div className="space-y-2 max-h-80 overflow-y-auto p-2">
+              {reinterpretedArticle.slice(0, -1).map((article, index) => (
+                <div
+                  key={index}
+                  className="p-2 mb-6 bg-muted rounded-md text-sm"
+                >
+                  <div className="whitespace-pre-wrap">{article}</div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>

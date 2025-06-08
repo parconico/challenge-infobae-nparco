@@ -31,6 +31,9 @@ interface ExaSearchOptions {
   highlightResults?: boolean;
   highlightSelector?: string;
   startCursor?: string;
+  contents?: {
+    text?: boolean;
+  };
 }
 
 // Cliente para la API de Exa
@@ -54,6 +57,7 @@ export class ExaClient {
     highlightResults = true,
     highlightSelector = "text",
     startCursor,
+    contents = { text: false },
   }: ExaSearchOptions): Promise<ExaSearchResponse> {
     try {
       const response = await fetch(`${this.baseUrl}`, {
@@ -69,6 +73,7 @@ export class ExaClient {
           highlightResults,
           highlightSelector,
           cursor: startCursor,
+          contents,
         }),
       });
 

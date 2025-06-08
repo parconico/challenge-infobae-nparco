@@ -5,10 +5,11 @@ import { useShallow } from "zustand/react/shallow";
 
 export interface ArticleState {
   initialArticle: string;
-  reinterpretedArticle: string;
+  reinterpretedArticle: string[];
   generatedTitles: string[];
   selectedTitle: string;
   selectedResult: ResearchResult | null;
+  titleCount: string;
 }
 
 export interface ResearchState {
@@ -39,6 +40,7 @@ export interface AppState {
   setReinterpretedArticle: (article: string) => void;
   setInitialArticle: (article: string) => void;
   setGeneratedTitles: (titles: string[]) => void;
+  setTitleCount: (count: string) => void;
 
   setActiveTab: (tab: string) => void;
 
@@ -58,10 +60,11 @@ const initialResearchState: ResearchState = {
 
 const initialArticleState: ArticleState = {
   initialArticle: "",
-  reinterpretedArticle: "",
+  reinterpretedArticle: [],
   generatedTitles: [],
   selectedTitle: "",
   selectedResult: null,
+  titleCount: "3",
 };
 
 export const useAppStore = create<AppState>()(
@@ -130,7 +133,13 @@ export const useAppStore = create<AppState>()(
         setReinterpretedArticle: (article) =>
           set(
             (state) => ({
-              article: { ...state.article, reinterpretedArticle: article },
+              article: {
+                ...state.article,
+                reinterpretedArticle: [
+                  ...state.article.reinterpretedArticle,
+                  article,
+                ],
+              },
             }),
             false,
             "setReinterpretedArticle"
@@ -152,6 +161,17 @@ export const useAppStore = create<AppState>()(
             }),
             false,
             "setSelectedTitle"
+          ),
+
+        // Selector de titulos
+
+        setTitleCount: (count: string) =>
+          set(
+            (state) => ({
+              article: { ...state.article, titleCount: count },
+            }),
+            false,
+            "setTitleCount"
           ),
 
         // UI actions
@@ -230,6 +250,7 @@ export const useArticleActions = () =>
       setGeneratedTitles: state.setGeneratedTitles,
       setSelectedTitle: state.setSelectedTitle,
       resetArticle: state.resetArticle,
+      setTitleCount: state.setTitleCount,
     }))
   );
 

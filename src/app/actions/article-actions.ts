@@ -28,7 +28,7 @@ export async function generateArticleFromUrl(url: string): Promise<string> {
 
     // 3. Generar el articulo usando GPT
     const { text } = await generateText({
-      model: openai(process.env.OPENAI_MODEL || "gpt-4o"),
+      model: openai(process.env.OPENAI_MODEL || "gpt-3.5-turbo"),
       maxTokens: Number(process.env.MAX_TOKENS) || 4000,
       prompt: `
         Basándote en la siguiente información extraída de una página web, 
@@ -69,10 +69,11 @@ export async function generateTitlesFromArticle(
 ): Promise<string[]> {
   try {
     const { object } = await generateObject({
-      model: openai(process.env.OPENAI_MODEL || "gpt-4o"),
+      model: openai(process.env.OPENAI_MODEL || "gpt-3.5-turbo"),
       schema: z.object({
         titles: z
           .array(z.string())
+          .min(count)
           .describe("Array of creative and engaging article titles"),
       }),
       prompt: `

@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useChat } from "ai/react";
+import { useChat } from "@ai-sdk/react";
 import { useArticleActions, useArticleState } from "@/lib/store";
 
 export function useArticleChat() {

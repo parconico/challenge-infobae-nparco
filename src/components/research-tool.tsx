@@ -12,6 +12,7 @@ import {
   useUiActions,
 } from "@/lib/store";
 import { TopicSelector } from "./research/TopicSelector";
+import { useStorageCleanup } from "@/hooks/useStoreCleanup";
 
 const PREDEFINED_TOPICS = [
   "Inteligencia Artificial en la educación",
@@ -23,6 +24,7 @@ const PREDEFINED_TOPICS = [
 ];
 
 export default function ResearchTool() {
+  useStorageCleanup();
   const research = useResearchState();
   const article = useArticleState();
   const activeTab = useActiveTab();

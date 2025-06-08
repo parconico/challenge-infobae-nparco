@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useTitleGeneration } from "@/hooks/useTitleGeneration";
 import { Loader2 } from "lucide-react";
-import TitleTab from "./TitleTab";
+import TitleTab from "@/components/article/TitleTab";
 
 export default function TitleGeneration() {
   const { article, setSelectedTitle, handleGenerateTitles, isTitleGenerating } =
