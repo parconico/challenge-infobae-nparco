@@ -42,6 +42,28 @@ npm run dev
 yarn dev
 ```
 
+## Configuración del Entorno (.env)
+
+Para que la aplicación funcione correctamente, es necesario crear un archivo `.env.local` en la raíz del proyecto con las siguientes variables de entorno:
+
+```env
+# Exa API Key
+EXA_API_KEY=
+
+# Exa URL API
+EXA_API_URL="https://api.exa.ai/search"
+
+# OpenAI API Key
+OPENAI_API_KEY=
+
+# URL de la aplicación Next.js (entorno de desarrollo)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Opcional: Configuraciones personalizadas del modelo
+OPENAI_MODEL=gpt-3.5-turbo
+OPENAI_MAX_TOKENS=4000
+
+
 La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
 
 ## Scripts Disponibles
@@ -100,3 +122,4 @@ Nicolás Parco
 - GitHub: https://github.com/parconico
 - LinkedIn: https://www.linkedin.com/in/nicolas-parco-164b89181/
 - Email: nicoparco98@gmail.com
+```
