@@ -57,7 +57,7 @@ export class ExaClient {
     highlightResults = true,
     highlightSelector = "text",
     startCursor,
-    contents = { text: false },
+    contents = { text: true },
   }: ExaSearchOptions): Promise<ExaSearchResponse> {
     try {
       const response = await fetch(`${this.baseUrl}`, {

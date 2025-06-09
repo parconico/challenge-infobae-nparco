@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useExpandedResults } from "@/hooks/useExpandedResults";
 import type { ResearchResult } from "@/lib/types";
+import { cleanSnippet } from "@/lib/utils";
 import { ExternalLink, Info, Star } from "lucide-react";
 
 interface ResultCardProps {
@@ -61,8 +62,8 @@ export function ResultCard({ result, onSelect, variant }: ResultCardProps) {
       </CardHeader>
 
       <CardContent>
-        <p className={expandedResults[result.id] ? "" : "line-clamp-3"}>
-          {result.snippet}
+        <p className={expandedResults[result.id] ? "" : "line-clamp-1"}>
+          {cleanSnippet(result.snippet)}
         </p>
         {result.snippet.length > 200 && (
           <Button

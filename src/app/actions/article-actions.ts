@@ -74,20 +74,20 @@ export async function generateTitlesFromArticle(
         titles: z
           .array(z.string())
           .min(count)
-          .describe("Array of creative and engaging article titles"),
+          .describe("Array de títulos creativos y atractivos para el artículo"),
       }),
       prompt: `
-        Generate ${count} creative, engaging, and SEO-friendly titles for the following article.
-        The titles should be:
-        - Attention-grabbing and clickable
-        - Relevant to the article content
-        - Between 40-60 characters when possible
-        - Varied in style (some questions, some statements, some with numbers)
+        Genera ${count} títulos creativos, atractivos y SEO-friendly para el siguiente artículo.
+        Los títulos deben ser:
+        - Atractivos y clickables
+        - Relevantes al contenido del artículo
+        - Entre 40-60 caracteres cuando sea posible
+        - Variados en estilo (algunos preguntas, algunos enunciados, algunos con números)
         
-        Article content:
+        Contenido del artículo:
         ${article.substring(0, 3000)}
         
-        Return exactly ${count} titles in the titles array.
+        Devuelve exactamente ${count} títulos en el array de títulos.
       `,
     });
 

@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { useAppStore, useResearchState, useUiActions } from "@/lib/store";
-import { BarChart3, MoveDown, MoveUp } from "lucide-react";
+import { BarChart3, TrendingDown, TrendingUp } from "lucide-react";
 import { Button } from "../ui/button";
 
 export default function ResultStats() {
@@ -20,15 +20,25 @@ export default function ResultStats() {
             <BarChart3 className="w-5 h-5 text-muted-foreground" />
             <span className="font-medium">Resumen de resultados</span>
           </div>
-          <div className="flex items-center">
-            {orderByRelevance ? <MoveUp /> : <MoveDown />}
+          {/* Botón de ordenamiento - Posición central destacada */}
+          <div className="flex items-center bg-muted rounded-lg  transition-all duration-200 hover:scale-105 ">
             <Button
-              variant="outline"
+              variant={orderByRelevance ? "default" : "ghost"}
               size="sm"
               onClick={handleToggleSort}
-              className="text-xs cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer"
             >
-              {orderByRelevance ? "Mayor relevancia" : "Menor relevancia"}
+              {orderByRelevance ? (
+                <>
+                  <TrendingUp className="w-4 h-4" />
+                  Mayor relevancia
+                </>
+              ) : (
+                <>
+                  <TrendingDown className="w-4 h-4" />
+                  Menor relevancia
+                </>
+              )}
             </Button>
           </div>
           <div className="flex space-x-4 text-sm text-muted-foreground">

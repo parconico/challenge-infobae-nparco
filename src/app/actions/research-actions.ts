@@ -19,7 +19,8 @@ export async function initialResearch(
       id: result.id,
       title: result.title,
       url: result.url,
-      snippet: result.text || result.content || "",
+      snippet:
+        result.text?.slice(0, 300) || result.content?.slice(0, 300) || "",
       score: result.score,
       source: new URL(result.url).hostname.replace("www.", ""),
     }));

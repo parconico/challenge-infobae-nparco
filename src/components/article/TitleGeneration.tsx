@@ -49,7 +49,7 @@ export default function TitleGeneration() {
             ))}
           </div>
           {article.selectedTitle && (
-            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
+            <div className="mt-4 p-4  rounded-md">
               <h4 className="font-medium text-green-800 mb-2">
                 Titulo seleccionado:
               </h4>
@@ -57,10 +57,12 @@ export default function TitleGeneration() {
                 {article.selectedTitle}
               </p>
               <div className="mt-3 flex gap-2">
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" className="cursor-pointer">
                   Copiar titulo
                 </Button>
-                <Button size="sm">Usar en editor</Button>
+                <Button size="sm" className="cursor-pointer">
+                  Usar en editor
+                </Button>
               </div>
             </div>
           )}

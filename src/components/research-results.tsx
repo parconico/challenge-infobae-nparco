@@ -7,9 +7,11 @@ import {
   useResearchState,
   useUiActions,
 } from "@/lib/store";
-import { ThumbsDown, ThumbsUp } from "lucide-react";
-import { ResultCard } from "./research/ResultCard";
-import ResultStats from "./research/ResultStats";
+import { Download, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ResultCard } from "@/components/research/ResultCard";
+import ResultStats from "@/components/research/ResultStats";
+import { Button } from "@/components/ui/button";
+import { useExportResults } from "@/hooks/useExportResults";
 
 export default function ResearchResults() {
   const { worthExpandingResults, notWorthExpandingResults } =
@@ -17,6 +19,7 @@ export default function ResearchResults() {
   const { setSelectedResult } = useArticleActions();
   const { setActiveTab } = useUiActions();
   const orderByRelevance = useAppStore((state) => state.orderByRelevance);
+  const { handleExportPDF, handleExportJSON } = useExportResults();
 
   const handleSelectResult = (result: any) => {
     setSelectedResult(result);
@@ -37,10 +40,33 @@ export default function ResearchResults() {
 
       {/*Worth Expanding Results*/}
       <div>
-        <h2 className="text-2xl font-semibold mb-4 flex items-center">
-          <ThumbsUp className="w-5 h-5 mr-2 text-green-500" />
-          Valen la pena expandir ({sortedWorthExpanding.length})
-        </h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center">
+            <ThumbsUp className="w-5 h-5 mr-2 text-green-500" />
+            Valen la pena expandir ({sortedWorthExpanding.length})
+          </h2>
+          <div className="flex justify-end items-center">
+            <div className="flex items-center gap-2">
+              <Download className="w-6 h-6 text-muted-foreground" />
+              <Button
+                variant="outline"
+                size="sm"
+                className="cursor-pointer"
+                onClick={handleExportPDF}
+              >
+                Exportar PDF
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="cursor-pointer"
+                onClick={handleExportJSON}
+              >
+                Exportar JSON
+              </Button>
+            </div>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-4">
           {sortedWorthExpanding.map((result) => (
             <ResultCard
