@@ -122,7 +122,3 @@ Nicolás Parco
 - GitHub: https://github.com/parconico
 - LinkedIn: https://www.linkedin.com/in/nicolas-parco-164b89181/
 - Email: nicoparco98@gmail.com
-
-```
-
-```
