@@ -48,7 +48,7 @@ export default function ArticleGenerationTab() {
       <Button
         onClick={handleGenerateArticle}
         disabled={isGenerating}
-        className="w-full"
+        className="w-full cursor-pointer"
       >
         {isGenerating ? (
           <>

@@ -99,7 +99,10 @@ export function ResultCard({ result, onSelect, variant }: ResultCardProps) {
 
       {variant === "expandable" && (
         <CardFooter>
-          <Button onClick={() => onSelect(result)} className="w-full">
+          <Button
+            onClick={() => onSelect(result)}
+            className="w-full cursor-pointer"
+          >
             Generar artículo
           </Button>
         </CardFooter>
