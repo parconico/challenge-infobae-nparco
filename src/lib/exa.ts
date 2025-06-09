@@ -40,7 +40,7 @@ interface ExaSearchOptions {
 
 export class ExaClient {
   private apiKey: string;
-  private baseUrl = "https://api.exa.ai/search";
+  private baseUrl = process.env.EXA_API_URL;
 
   constructor(apiKey: string) {
     if (!apiKey) {
