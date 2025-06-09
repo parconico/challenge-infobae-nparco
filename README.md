@@ -71,7 +71,6 @@ La aplicación estará disponible en [http://localhost:3000](http://localhost:30
 
 - [ ] Implementar tests unitarios y de integración
 - [ ] Mejorar la cobertura de tipos de TypeScript
-- [ ] Optimizar el rendimiento de la aplicación
 - [ ] Añadir documentación detallada de componentes
 - [ ] Implementar CI/CD
 
