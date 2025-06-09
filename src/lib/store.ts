@@ -30,9 +30,11 @@ export interface AppState {
   // UI state
   activeTab: string;
 
+  // Article generation tab state
+  articleGenerationTab: string;
+
   // Sorting state
   orderByRelevance: boolean;
-  setOrderByRelevance: (value: boolean) => void;
 
   // Actions
   setResearchResults: (results: ResearchResult[]) => void;
@@ -47,6 +49,9 @@ export interface AppState {
   setTitleCount: (count: string) => void;
 
   setActiveTab: (tab: string) => void;
+
+  setOrderByRelevance: (value: boolean) => void;
+  setArticleGenerationTab: (tab: string) => void;
 
   //Reset functions
   resetResearch: () => void;
@@ -80,6 +85,7 @@ export const useAppStore = create<AppState>()(
         article: initialArticleState,
         activeTab: "research",
         orderByRelevance: false,
+        articleGenerationTab: "generate",
 
         // Research actions
         setResearchResults: (results) =>
@@ -199,6 +205,15 @@ export const useAppStore = create<AppState>()(
             "setActiveTab"
           ),
 
+        setArticleGenerationTab: (tab) =>
+          set(
+            () => ({
+              articleGenerationTab: tab,
+            }),
+            false,
+            "setArticleGenerationTab"
+          ),
+
         // Reset functions
         resetResearch: () =>
           set(
@@ -244,6 +259,8 @@ export const useAppStore = create<AppState>()(
 export const useResearchState = () => useAppStore((state) => state.research);
 export const useArticleState = () => useAppStore((state) => state.article);
 export const useActiveTab = () => useAppStore((state) => state.activeTab);
+export const useArticleGenerationTab = () =>
+  useAppStore((state) => state.articleGenerationTab);
 
 // Action selectors
 export const useResearchActions = () =>
@@ -275,5 +292,6 @@ export const useUiActions = () =>
       setActiveTab: state.setActiveTab,
       resetAll: state.resetAll,
       setOrderByRelevance: state.setOrderByRelevance,
+      setArticleGenerationTab: state.setArticleGenerationTab,
     }))
   );

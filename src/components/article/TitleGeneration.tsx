@@ -3,13 +3,38 @@ import { Button } from "@/components/ui/button";
 import { useTitleGeneration } from "@/hooks/useTitleGeneration";
 import { Loader2 } from "lucide-react";
 import TitleTab from "@/components/article/TitleTab";
+import { useUiActions, useArticleState, useArticleActions } from "@/lib/store";
+import { useState } from "react";
 
 export default function TitleGeneration() {
   const { article, setSelectedTitle, handleGenerateTitles, isTitleGenerating } =
     useTitleGeneration();
+  const { setArticleGenerationTab } = useUiActions();
+  const { reinterpretedArticle } = useArticleState();
+  const { setReinterpretedArticle } = useArticleActions();
 
-  const handleSelectTitle = (title: string) => {
-    setSelectedTitle(title);
+  // Estado local como activador
+  const [isTitleSelected, setIsTitleSelected] = useState<string>("");
+
+  const handleCopyTitle = () => {
+    navigator.clipboard.writeText(article.selectedTitle);
+  };
+
+  const handleUseTitle = () => {
+    if (reinterpretedArticle.length > 0) {
+      // Obtenemos el último artículo reinterpretado
+      const lastArticle = reinterpretedArticle[reinterpretedArticle.length - 1];
+
+      // Separamos el contenido en líneas y reemplazamos el título
+      const lines = lastArticle.split("\n");
+      const newArticle = [isTitleSelected, ...lines.slice(1)].join("\n");
+
+      // Actualizamos el artículo reinterpretado
+      setReinterpretedArticle(newArticle);
+    }
+
+    setSelectedTitle(isTitleSelected);
+    setArticleGenerationTab("integration");
   };
 
   return (
@@ -35,11 +60,11 @@ export default function TitleGeneration() {
               <div
                 key={index}
                 className={`p-3 border rounded-md cursor-pointer hover:bg-muted/50 transition-colors ${
-                  article.selectedTitle === title
+                  isTitleSelected === title
                     ? "bg-primary/10 border-primary"
                     : ""
                 }`}
-                onClick={() => handleSelectTitle(title)}
+                onClick={() => setIsTitleSelected(title)}
               >
                 <span className="text-sm text-muted-foreground mr-2">
                   #{index + 1}
@@ -48,19 +73,27 @@ export default function TitleGeneration() {
               </div>
             ))}
           </div>
-          {article.selectedTitle && (
-            <div className="mt-4 p-4  rounded-md">
+
+          {isTitleSelected && (
+            <div className="mt-4 p-4 rounded-md">
               <h4 className="font-medium text-green-800 mb-2">
                 Titulo seleccionado:
               </h4>
-              <p className="text-green-700 font-medium">
-                {article.selectedTitle}
-              </p>
+              <p className="text-green-700 font-medium">{isTitleSelected}</p>
               <div className="mt-3 flex gap-2">
-                <Button size="sm" variant="outline" className="cursor-pointer">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="cursor-pointer"
+                  onClick={handleCopyTitle}
+                >
                   Copiar titulo
                 </Button>
-                <Button size="sm" className="cursor-pointer">
+                <Button
+                  size="sm"
+                  className="cursor-pointer"
+                  onClick={handleUseTitle}
+                >
                   Usar en editor
                 </Button>
               </div>

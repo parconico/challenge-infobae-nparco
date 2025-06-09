@@ -2,17 +2,21 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useArticleState } from "@/lib/store";
-import { Edit, FileText, Type } from "lucide-react";
-import { useState } from "react";
-import ArticleGenerationTab from "./article/ArticleGenerationTab";
-import { ArticleReinterpretationTab } from "./article/ArticleReinterpretationTab";
-import TitleGeneration from "./article/TitleGeneration";
+import {
+  useArticleGenerationTab,
+  useArticleState,
+  useUiActions,
+} from "@/lib/store";
+import { Blocks, Edit, FileText, Type } from "lucide-react";
+import ArticleGenerationTab from "@/components/article/ArticleGenerationTab";
+import { ArticleReinterpretationTab } from "@/components/article/ArticleReinterpretationTab";
+import TitleGeneration from "@/components/article/TitleGeneration";
+import ArticleIntegrationTab from "@/components/article/ArticleIntegrationTab";
 
 export default function ArticleGenerator() {
   const article = useArticleState();
-
-  const [activeArticleTab, setActiveArticleTab] = useState("generate");
+  const { setArticleGenerationTab } = useUiActions();
+  const articleGenerationTab = useArticleGenerationTab();
 
   if (!article.selectedResult) return null;
 
@@ -26,8 +30,11 @@ export default function ArticleGenerator() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeArticleTab} onValueChange={setActiveArticleTab}>
-            <TabsList className="grid w-full grid-cols-3">
+          <Tabs
+            value={articleGenerationTab}
+            onValueChange={setArticleGenerationTab}
+          >
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="generate" className="flex items-center">
                 <FileText className="w-4 h-4 mr-1" />
                 Generar
@@ -48,6 +55,14 @@ export default function ArticleGenerator() {
                 <Type className="w-4 h-4 mr-1" />
                 Titulos
               </TabsTrigger>
+              <TabsTrigger
+                value="integration"
+                disabled={!article.selectedTitle}
+                className="flex items-center"
+              >
+                <Blocks className="w-4 h-4 mr-1" />
+                Integración
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="generate" className="space-y-4 py-4">
@@ -60,6 +75,10 @@ export default function ArticleGenerator() {
 
             <TabsContent value="titles" className="space-y-4 py-4">
               <TitleGeneration />
+            </TabsContent>
+
+            <TabsContent value="integration" className="space-y-4 py-4">
+              <ArticleIntegrationTab />
             </TabsContent>
           </Tabs>
         </CardContent>

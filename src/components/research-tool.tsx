@@ -32,8 +32,13 @@ export default function ResearchTool() {
   const { setResearchResults, setResearchLoading, setCurrentTopic } =
     useResearchActions();
   const { setActiveTab } = useUiActions();
+  const { resetAll } = useUiActions();
 
   const handleResearch = async (topic: string) => {
+    // Primero limpiamos todo el estado
+    resetAll();
+
+    // Luego iniciamos la nueva búsqueda
     setResearchLoading(true);
     setCurrentTopic(topic);
     try {
