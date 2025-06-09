@@ -62,7 +62,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 # Opcional: Configuraciones personalizadas del modelo
 OPENAI_MODEL=gpt-3.5-turbo
 OPENAI_MAX_TOKENS=4000
-
+```
 
 La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
 
@@ -122,4 +122,7 @@ Nicolás Parco
 - GitHub: https://github.com/parconico
 - LinkedIn: https://www.linkedin.com/in/nicolas-parco-164b89181/
 - Email: nicoparco98@gmail.com
+
+```
+
 ```
