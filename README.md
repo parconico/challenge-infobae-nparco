@@ -60,6 +60,25 @@ La aplicación estará disponible en [http://localhost:3000](http://localhost:30
 - 📄 Generación de PDFs con jsPDF
 - 🤖 Integración con IA mediante OpenAI SDK
 
+## Modelos de OpenAI utilizados
+
+Durante el desarrollo del proyecto se han utilizado y probado los siguientes modelos de la API de OpenAI:
+
+- `gpt-3.5-turbo`
+- `gpt-4o`
+- `gpt-4o-mini`
+
+Esto permitió validar la flexibilidad del sistema ante distintos niveles de costo y capacidad de respuesta de los modelos.
+
+## Enfoques que se tuvieron en cuenta
+
+- Desarrollo de una interfaz intuitiva y simple que te impulsa a una serie de pasos.
+- Utilizacion de la API Exa para obtener informacion relevante de cada tema predefinido.
+- Se tuvieron en cuenta criterios programaticos y heuristicos para la categorizacion del contenido.
+- Generacion de articulos a partir de URL utilizando useChat() y streamText().
+- Generacion de titulos dinamicos utilizando hook generateObject().
+- Features opcionales implementadas.
+
 ## Consideraciones Técnicas
 
 - Se utiliza TypeScript para type safety
