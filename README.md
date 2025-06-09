@@ -1,37 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Challenge Infobae - Nicolás Parco
 
-## Getting Started
+Este proyecto es una aplicación web moderna desarrollada con Next.js 15, React 19 y TypeScript, utilizando las últimas tecnologías y mejores prácticas de desarrollo.
 
-First, run the development server:
+## Tecnologías Principales
+
+- Next.js 15.3.3 con Turbopack
+- React 19.0.0
+- TypeScript 5
+- Tailwind CSS 4
+- Shadcn para componentes accesibles
+- Zustand para manejo de estado
+- AI SDK para integraciones con OpenAI
+
+## Requisitos Previos
+
+- Node.js (versión 20 o superior recomendada)
+- npm o yarn
+
+## Configuración del Proyecto
+
+1. Clonar el repositorio:
+
+```bash
+git clone https://github.com/parconico/challenge-infobae-nparco.git
+cd challenge-infobae-nparco
+```
+
+2. Instalar dependencias:
+
+```bash
+npm install
+# o
+yarn install
+```
+
+3. Iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
+# o
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La aplicación estará disponible en [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts Disponibles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Inicia el servidor de desarrollo con Turbopack
+- `npm run build` - Construye la aplicación para producción
+- `npm run start` - Inicia el servidor de producción
+- `npm run lint` - Ejecuta el linter para verificar el código
 
-## Learn More
+## Características Principales
 
-To learn more about Next.js, take a look at the following resources:
+- 🚀 Rendimiento optimizado con Turbopack
+- 🎨 Diseño moderno y responsive con Tailwind CSS
+- 🔒 Componentes accesibles con Shadcn
+- 🌙 Soporte para tema claro/oscuro con next-themes
+- 📄 Generación de PDFs con jsPDF
+- 🤖 Integración con IA mediante OpenAI SDK
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Consideraciones Técnicas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Se utiliza TypeScript para type safety
+- Implementación de ESLint para mantener la calidad del código
+- Uso de Tailwind CSS para estilos consistentes y mantenibles
+- Componentes accesibles siguiendo las mejores prácticas
 
-## Deploy on Vercel
+## Próximas Mejoras
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [ ] Implementar tests unitarios y de integración
+- [ ] Mejorar la cobertura de tipos de TypeScript
+- [ ] Optimizar el rendimiento de la aplicación
+- [ ] Añadir documentación detallada de componentes
+- [ ] Implementar CI/CD
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# challenge-infobae-nparco
+## Contacto
+
+Nicolás Parco
+
+- GitHub: https://github.com/parconico
+- LinkedIn: https://www.linkedin.com/in/nicolas-parco-164b89181/
+- Email: nicoparco98@gmail.com
